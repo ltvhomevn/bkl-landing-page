@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head><title>Test API</title></head>
+<body>
+<h1 id="out">Testing...</h1>
+<script>
+fetch("https://api.netlify.com/api/v1/sites/fe56a2be-f829-4d54-9992-73b64c62bd51", {
+    headers: { "Authorization": "Bearer nfp_8ZbV57nnq9qF46CHQfHTzMKGKDjuFvfsde88" }
+})
+.then(r => r.json())
+.then(d => {
+    document.getElementById("out").innerText = "SUCCESS: " + d.name;
+    document.title = "SUCCESS";
+})
+.catch(e => {
+    document.getElementById("out").innerText = "ERROR: " + e.message;
+    document.title = "ERROR";
+});
+</script>
+</body>
+</html>
