@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html><head><title>BKL Deploy</title></head>
+<body>
+<h2>🚀 BKL Home - Auto Deploy to Netlify</h2>
+<pre id="log">Loading...</pre>
+<script>
+const TOKEN = "nfp_8ZbV57nnq9qF46CHQfHTzMKGKDjuFvfsde88";
+const API = "https://api.netlify.com/api/v1";
+const log = document.getElementById('log');
+function l(m) { log.textContent += m + '\n'; console.log(m); }
+
+function b64toArray(b64) {
+    const bin = atob(b64);
+    const bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    return bytes;
+}
+
+async function sha1hex(data) {
+    const hash = await crypto.subtle.digest('SHA-1', data);
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+async function deploy() {
+    log.textContent = '';
+    l('📂 Loading file data...');
+    
+    // Load deploy data from local file
+    const resp = await fetch('deploy-data.json');
+    const data = await resp.json();
+    const { files, uploads } = data;
+    l(`📦 ${Object.keys(files).length} files loaded`);
+
+    // Verify hashes
+    l('🔐 Verifying file hashes...');
+    for (const [path, b64] of Object.entries(uploads)) {
+        const bytes = b64toArray(b64);
+        const hash = await sha1hex(bytes);
+        if (hash !== files[path]) {
+            l(`⚠️ Hash mismatch for ${path}`);
+            files[path] = hash;
+        }
+        l(`  ✓ ${path} (${bytes.length} bytes)`);
+    }
+
+    // Create new site
+    l('\n🏗️ Creating new Netlify site...');
+    const createResp = await fetch(`${API}/sites`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+            name: 'bklhome-deploy',
+            custom_domain: 'bklhome.com',
+            files: files 
+        })
+    });
+    
+    if (!createResp.ok) {
+        // Site may already exist, try deploying to existing
+        l('ℹ️ Creating new deploy on existing site...');
+        const sites = await (await fetch(`${API}/sites`, {
+            headers: { 'Authorization': `Bearer ${TOKEN}` }
+        })).json();
+        
+        let siteId = null;
+        for (const s of sites) {
+            l(`  Found: ${s.name} (${s.id})`);
+            if (s.custom_domain === 'bklhome.com' || s.name === 'bklhome-deploy') {
+                siteId = s.id;
+                break;
+            }
+        }
+        
+        if (!siteId) {
+            // Create with different name
+            const cr2 = await fetch(`${API}/sites`, {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ files })
+            });
+            const newSite = await cr2.json();
+            siteId = newSite.id || newSite.site_id;
+            l(`✅ New site: ${siteId}`);
+            var deployData = newSite;
+        } else {
+            const dr = await fetch(`${API}/sites/${siteId}/deploys`, {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ files })
+            });
+            var deployData = await dr.json();
+        }
+    } else {
+        var deployData = await createResp.json();
+    }
+    
+    const deployId = deployData.id || deployData.deploy_id;
+    const siteUrl = deployData.ssl_url || deployData.url;
+    const required = deployData.required || [];
+    l(`\n🚀 Deploy ID: ${deployId}`);
+    l(`📤 Files to upload: ${required.length}`);
+
+    // Upload required files
+    for (const sha of required) {
+        for (const [path, hash] of Object.entries(files)) {
+            if (hash === sha && uploads[path]) {
+                l(`  ⬆️ Uploading ${path}...`);
+                const bytes = b64toArray(uploads[path]);
+                await fetch(`${API}/deploys/${deployId}/files${path}`, {
+                    method: 'PUT',
+                    headers: { 'Authorization': `Bearer ${TOKEN}`, 'Content-Type': 'application/octet-stream' },
+                    body: bytes
+                });
+                break;
+            }
+        }
+    }
+
+    // Wait for deploy
+    l('\n⏳ Waiting for deploy...');
+    for (let i = 0; i < 30; i++) {
+        await new Promise(r => setTimeout(r, 3000));
+        const st = await (await fetch(`${API}/deploys/${deployId}`, {
+            headers: { 'Authorization': `Bearer ${TOKEN}` }
+        })).json();
+        l(`  ${st.state}...`);
+        if (st.state === 'ready') {
+            l(`\n✅ DEPLOY SUCCESSFUL!`);
+            l(`🌐 ${st.ssl_url || st.url}`);
+            l(`\n📌 Now add custom domain bklhome.com in Netlify dashboard`);
+            document.title = 'DEPLOY OK: ' + (st.ssl_url || st.url);
+            return;
+        }
+        if (st.state === 'error') {
+            l(`❌ Failed: ${st.error_message}`);
+            return;
+        }
+    }
+}
+
+deploy().catch(e => l('❌ ' + e.message));
+</script>
+</body>
+</html>
