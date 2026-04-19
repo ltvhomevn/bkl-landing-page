@@ -237,7 +237,11 @@ a { text-decoration: none; color: inherit; }
   .time-block { min-width: 60px; padding: 10px 14px; }
   .time-number { font-size: 26px; }
   .products-grid { grid-template-columns: 1fr; }
-  .features-grid { grid-template-columns: 1fr; }
+  .features-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .feature-card { padding: 20px 12px; }
+  .feature-icon { font-size: 32px; margin-bottom: 10px; }
+  .feature-title { font-size: 14px; }
+  .feature-desc { font-size: 12px; }
   .gallery-grid { grid-template-columns: 1fr; }
   .gallery-large { grid-row: span 1; }
   .form-wrapper { grid-template-columns: 1fr; }

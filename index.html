@@ -124,22 +124,17 @@
                 </div>
                 <div class="countdown-timer" id="countdownTimer">
                     <div class="time-block">
-                        <span class="time-number" id="days">07</span>
-                        <span class="time-label">Ngày</span>
-                    </div>
-                    <div class="time-separator">:</div>
-                    <div class="time-block">
-                        <span class="time-number" id="hours">12</span>
+                        <span class="time-number" id="hours">23</span>
                         <span class="time-label">Giờ</span>
                     </div>
                     <div class="time-separator">:</div>
                     <div class="time-block">
-                        <span class="time-number" id="minutes">45</span>
+                        <span class="time-number" id="minutes">59</span>
                         <span class="time-label">Phút</span>
                     </div>
                     <div class="time-separator">:</div>
                     <div class="time-block">
-                        <span class="time-number" id="seconds">30</span>
+                        <span class="time-number" id="seconds">59</span>
                         <span class="time-label">Giây</span>
                     </div>
                 </div>
@@ -155,73 +150,149 @@
                 <h2 class="section-title">Thiết Bị Cao Cấp <span class="text-gradient">Giá Ưu Đãi</span></h2>
                 <p class="section-subtitle">Sản phẩm chính hãng từ các thương hiệu nổi tiếng, bảo hành lên tới 5 năm</p>
             </div>
-            <div class="products-grid">
-                <!-- Product 1: Combo TBVS -->
-                <div class="product-card">
-                    <div class="product-badge">HOT</div>
-                    <div class="product-image">
-                        <img src="images/product-bathtub.png" alt="Combo thiết bị vệ sinh" loading="lazy">
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Combo thiết bị vệ sinh</span>
-                        <h3 class="product-name">Combo TBVS Cao Cấp</h3>
-                        <p class="product-desc">Trọn bộ thiết bị vệ sinh cho phòng tắm: bồn cầu, lavabo, sen vòi, phụ kiện</p>
-                        <div class="product-pricing">
-                            <span class="price-current">Từ 6.990.000đ</span>
-                            <span class="price-original">18.000.000đ</span>
+
+            <!-- DANH MỤC 1: THIẾT BỊ PHÒNG TẮM -->
+            <div class="product-category-block">
+                <h3 class="category-heading">🚿 Thiết Bị Phòng Tắm</h3>
+                <div class="product-scroll-wrapper">
+                    <div class="product-scroll-track">
+                        <!-- SP1 -->
+                        <div class="product-card">
+                            <div class="product-badge">HOT</div>
+                            <div class="product-image">
+                                <img src="images/product-bathtub.png" alt="Combo thiết bị vệ sinh" loading="lazy">
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">Combo TBVS</span>
+                                <h3 class="product-name">Combo TBVS Cao Cấp</h3>
+                                <div class="product-pricing">
+                                    <span class="price-current">Từ 6.990.000đ</span>
+                                    <span class="price-original">18.000.000đ</span>
+                                </div>
+                                <button onclick="openComboModal()" class="btn btn-product">🔥 Xem combo</button>
+                            </div>
                         </div>
-                        <button onclick="openComboModal()" class="btn btn-product">🔥 Xem các combo</button>
+                        <!-- SP2 -->
+                        <div class="product-card">
+                            <div class="product-badge">-50%</div>
+                            <div class="product-image">
+                                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80" alt="Tủ Lavabo" loading="lazy">
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">Nội thất phòng tắm</span>
+                                <h3 class="product-name">Tủ Lavabo Cao Cấp</h3>
+                                <div class="product-pricing">
+                                    <span class="price-current">Từ 2.990.000đ</span>
+                                    <span class="price-original">6.000.000đ</span>
+                                </div>
+                                <button onclick="openLavaboModal()" class="btn btn-product">🔥 Xem mẫu tủ</button>
+                            </div>
+                        </div>
+                        <!-- SP3 -->
+                        <div class="product-card">
+                            <div class="product-badge">-45%</div>
+                            <div class="product-image">
+                                <img src="https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=800&q=80" alt="Sen tắm đứng" loading="lazy">
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">Sen vòi</span>
+                                <h3 class="product-name">Sen Tắm Đứng Inox 304</h3>
+                                <div class="product-pricing">
+                                    <span class="price-current">1.890.000đ</span>
+                                    <span class="price-original">3.500.000đ</span>
+                                </div>
+                                <a href="#contact" class="btn btn-product">Liên hệ mua</a>
+                            </div>
+                        </div>
+                        <!-- SP4 -->
+                        <div class="product-card">
+                            <div class="product-badge">-40%</div>
+                            <div class="product-image">
+                                <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=800&q=80" alt="Gương LED" loading="lazy">
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">Phụ kiện phòng tắm</span>
+                                <h3 class="product-name">Gương LED Cảm Ứng</h3>
+                                <div class="product-pricing">
+                                    <span class="price-current">1.490.000đ</span>
+                                    <span class="price-original">2.500.000đ</span>
+                                </div>
+                                <a href="#contact" class="btn btn-product">Liên hệ mua</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <!-- Product 2 -->
-                <div class="product-card">
-                    <div class="product-badge">-50%</div>
-                    <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80" alt="Tủ Lavabo Cao Cấp" loading="lazy">
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Nội thất phòng tắm</span>
-                        <h3 class="product-name">Tủ Lavabo Cao Cấp</h3>
-                        <p class="product-desc">Đa dạng mẫu tủ chậu lavabo, chống nước tuyệt đối, tích hợp gương LED thông minh</p>
-                        <div class="product-pricing">
-                            <span class="price-current">Từ 2.990.000đ</span>
-                            <span class="price-original">6.000.000đ</span>
+            </div>
+
+            <!-- DANH MỤC 2: THIẾT BỊ GIA DỤNG -->
+            <div class="product-category-block">
+                <h3 class="category-heading">🏠 Thiết Bị Gia Dụng</h3>
+                <div class="product-scroll-wrapper">
+                    <div class="product-scroll-track">
+                        <!-- SP5 -->
+                        <div class="product-card">
+                            <div class="product-badge">-50%</div>
+                            <div class="product-image">
+                                <img src="images/product-faucet.png" alt="Vòi rửa chén" loading="lazy">
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">Thiết bị nhà bếp</span>
+                                <h3 class="product-name">Vòi Rửa Chén Cao Cấp</h3>
+                                <div class="product-pricing">
+                                    <span class="price-current">2.490.000đ</span>
+                                    <span class="price-original">4.990.000đ</span>
+                                </div>
+                                <a href="#contact" class="btn btn-product">Liên hệ mua</a>
+                            </div>
                         </div>
-                        <button onclick="openLavaboModal()" class="btn btn-product">🔥 Xem các mẫu tủ</button>
-                    </div>
-                </div>
-                <!-- Product 3 -->
-                <div class="product-card">
-                    <div class="product-badge">-50%</div>
-                    <div class="product-image">
-                        <img src="images/product-faucet.png" alt="Vòi rửa cao cấp" loading="lazy">
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Thiết bị nhà bếp</span>
-                        <h3 class="product-name">Vòi Rửa Chén Cao Cấp</h3>
-                        <p class="product-desc">Vòi rửa dây rút Inox 304, công nghệ tiết kiệm nước</p>
-                        <div class="product-pricing">
-                            <span class="price-current">2.490.000đ</span>
-                            <span class="price-original">4.990.000đ</span>
+                        <!-- SP6 -->
+                        <div class="product-card">
+                            <div class="product-badge">-50%</div>
+                            <div class="product-image">
+                                <img src="images/product-sink.png" alt="Chậu rửa inox" loading="lazy">
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">Thiết bị nhà bếp</span>
+                                <h3 class="product-name">Chậu Rửa Inox Đôi</h3>
+                                <div class="product-pricing">
+                                    <span class="price-current">3.990.000đ</span>
+                                    <span class="price-original">7.990.000đ</span>
+                                </div>
+                                <a href="#contact" class="btn btn-product">Liên hệ mua</a>
+                            </div>
                         </div>
-                        <a href="#contact" class="btn btn-product">Liên hệ mua hàng</a>
-                    </div>
-                </div>
-                <!-- Product 4 -->
-                <div class="product-card">
-                    <div class="product-badge">-50%</div>
-                    <div class="product-image">
-                        <img src="images/product-sink.png" alt="Chậu rửa nhà bếp" loading="lazy">
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Thiết bị nhà bếp</span>
-                        <h3 class="product-name">Chậu Rửa Inox Đôi</h3>
-                        <p class="product-desc">Chậu rửa 2 hố Inox 304 kèm vòi rút, chống ồn</p>
-                        <div class="product-pricing">
-                            <span class="price-current">3.990.000đ</span>
-                            <span class="price-original">7.990.000đ</span>
+                        <!-- SP7 -->
+                        <div class="product-card">
+                            <div class="product-badge">-35%</div>
+                            <div class="product-image">
+                                <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=800&q=80" alt="Máy lọc nước" loading="lazy">
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">Gia dụng</span>
+                                <h3 class="product-name">Máy Lọc Nước RO</h3>
+                                <div class="product-pricing">
+                                    <span class="price-current">4.990.000đ</span>
+                                    <span class="price-original">7.500.000đ</span>
+                                </div>
+                                <a href="#contact" class="btn btn-product">Liên hệ mua</a>
+                            </div>
                         </div>
-                        <a href="#contact" class="btn btn-product">Liên hệ mua hàng</a>
+                        <!-- SP8 -->
+                        <div class="product-card">
+                            <div class="product-badge">-30%</div>
+                            <div class="product-image">
+                                <img src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=800&q=80" alt="Bình nóng lạnh" loading="lazy">
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">Gia dụng</span>
+                                <h3 class="product-name">Bình Nóng Lạnh 30L</h3>
+                                <div class="product-pricing">
+                                    <span class="price-current">2.990.000đ</span>
+                                    <span class="price-original">4.200.000đ</span>
+                                </div>
+                                <a href="#contact" class="btn btn-product">Liên hệ mua</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -267,26 +338,33 @@
             <div class="section-header">
                 <span class="section-tag">Không gian showroom</span>
                 <h2 class="section-title">Trải Nghiệm <span class="text-gradient">Thực Tế</span></h2>
-                <p class="section-subtitle">Đến showroom BKL Home để trải nghiệm trực tiếp hàng trăm sản phẩm cao cấp
-                </p>
+                <p class="section-subtitle">Đến showroom BKL Home để trải nghiệm trực tiếp hàng trăm sản phẩm cao cấp</p>
             </div>
-            <div class="gallery-grid">
-                <div class="gallery-item gallery-large">
-                    <img src="images/hero-banner.png" alt="Showroom BKL Home" loading="lazy">
-                    <div class="gallery-overlay">
-                        <span>Showroom BKL Home</span>
+            <div class="gallery-scroll-wrapper">
+                <div class="gallery-scroll-track">
+                    <div class="gallery-item">
+                        <img src="images/hero-banner.png" alt="Showroom BKL Home" loading="lazy">
+                        <div class="gallery-overlay"><span>Showroom BKL Home</span></div>
                     </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="images/bathroom-products.png" alt="Khu vực thiết bị vệ sinh" loading="lazy">
-                    <div class="gallery-overlay">
-                        <span>Thiết bị vệ sinh</span>
+                    <div class="gallery-item">
+                        <img src="images/bathroom-products.png" alt="Thiết bị vệ sinh" loading="lazy">
+                        <div class="gallery-overlay"><span>Thiết bị vệ sinh</span></div>
                     </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="images/kitchen-products.png" alt="Khu vực nhà bếp" loading="lazy">
-                    <div class="gallery-overlay">
-                        <span>Thiết bị nhà bếp</span>
+                    <div class="gallery-item">
+                        <img src="images/kitchen-products.png" alt="Thiết bị nhà bếp" loading="lazy">
+                        <div class="gallery-overlay"><span>Thiết bị nhà bếp</span></div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=800&q=80" alt="Gương LED phòng tắm" loading="lazy">
+                        <div class="gallery-overlay"><span>Gương LED thông minh</span></div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80" alt="Tủ lavabo" loading="lazy">
+                        <div class="gallery-overlay"><span>Tủ Lavabo cao cấp</span></div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=800&q=80" alt="Sen vòi cao cấp" loading="lazy">
+                        <div class="gallery-overlay"><span>Sen vòi nhập khẩu</span></div>
                     </div>
                 </div>
             </div>
