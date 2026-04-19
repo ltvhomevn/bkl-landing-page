@@ -156,21 +156,21 @@
                 <p class="section-subtitle">Sản phẩm chính hãng từ các thương hiệu nổi tiếng, bảo hành lên tới 5 năm</p>
             </div>
             <div class="products-grid">
-                <!-- Product 1 -->
+                <!-- Product 1: Combo TBVS -->
                 <div class="product-card">
-                    <div class="product-badge">-50%</div>
+                    <div class="product-badge">HOT</div>
                     <div class="product-image">
-                        <img src="images/product-bathtub.png" alt="Bồn tắm cao cấp" loading="lazy">
+                        <img src="images/product-bathtub.png" alt="Combo thiết bị vệ sinh" loading="lazy">
                     </div>
                     <div class="product-info">
-                        <span class="product-category">Thiết bị vệ sinh</span>
-                        <h3 class="product-name">Bồn Tắm Cao Cấp</h3>
-                        <p class="product-desc">Bồn tắm đứng/nằm nhập khẩu, chất liệu Acrylic cao cấp</p>
+                        <span class="product-category">Combo thiết bị vệ sinh</span>
+                        <h3 class="product-name">Combo TBVS Cao Cấp</h3>
+                        <p class="product-desc">Trọn bộ thiết bị vệ sinh cho phòng tắm: bồn cầu, lavabo, sen vòi, phụ kiện</p>
                         <div class="product-pricing">
-                            <span class="price-current">12.990.000đ</span>
-                            <span class="price-original">25.990.000đ</span>
+                            <span class="price-current">Từ 8.990.000đ</span>
+                            <span class="price-original">18.000.000đ</span>
                         </div>
-                        <a href="#contact" class="btn btn-product">Liên hệ mua hàng</a>
+                        <button onclick="openComboModal()" class="btn btn-product">🔥 Xem các combo</button>
                     </div>
                 </div>
                 <!-- Product 2 -->
@@ -496,6 +496,86 @@
         <a href="#contact" class="float-btn float-form" aria-label="Đăng ký">
             🎁
         </a>
+    </div>
+
+    <!-- COMBO MODAL -->
+    <div class="combo-modal-overlay" id="comboModal" onclick="closeComboModal(event)">
+        <div class="combo-modal" onclick="event.stopPropagation()">
+            <button class="combo-modal-close" onclick="closeComboModal()">&times;</button>
+            <h2 class="combo-modal-title">🔥 Combo Thiết Bị Vệ Sinh</h2>
+            <p class="combo-modal-subtitle">Tiết kiệm đến 50% khi mua combo trọn bộ</p>
+            
+            <div class="combo-list">
+                <!-- Combo 1 -->
+                <div class="combo-item">
+                    <div class="combo-header">
+                        <span class="combo-badge">Phổ biến nhất</span>
+                        <h3 class="combo-name">Combo Cơ Bản</h3>
+                        <div class="combo-price">
+                            <span class="combo-price-current">8.990.000đ</span>
+                            <span class="combo-price-original">18.000.000đ</span>
+                        </div>
+                    </div>
+                    <ul class="combo-details">
+                        <li>✅ Bồn cầu 1 khối cao cấp</li>
+                        <li>✅ Lavabo chậu rửa mặt</li>
+                        <li>✅ Sen tắm đứng inox 304</li>
+                        <li>✅ Bộ phụ kiện 6 món</li>
+                        <li>✅ Gương phòng tắm</li>
+                        <li>🎁 <strong>Tặng kệ để đồ inox</strong></li>
+                    </ul>
+                    <a href="#contact" class="btn btn-product combo-btn" onclick="closeComboModal()">Đăng ký combo này</a>
+                </div>
+
+                <!-- Combo 2 -->
+                <div class="combo-item combo-featured">
+                    <div class="combo-header">
+                        <span class="combo-badge combo-badge-hot">🔥 Best Seller</span>
+                        <h3 class="combo-name">Combo Cao Cấp</h3>
+                        <div class="combo-price">
+                            <span class="combo-price-current">15.990.000đ</span>
+                            <span class="combo-price-original">32.000.000đ</span>
+                        </div>
+                    </div>
+                    <ul class="combo-details">
+                        <li>✅ Bồn cầu thông minh 1 khối</li>
+                        <li>✅ Lavabo âm bàn đá</li>
+                        <li>✅ Cây sen tắm đứng nhiệt độ</li>
+                        <li>✅ Tủ lavabo gỗ chống ẩm</li>
+                        <li>✅ Bộ phụ kiện 6 món mạ vàng</li>
+                        <li>✅ Gương đèn LED cảm ứng</li>
+                        <li>🎁 <strong>Tặng bồn tắm mini / kệ inox</strong></li>
+                        <li>🎁 <strong>Miễn phí lắp đặt tại nhà</strong></li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary combo-btn" onclick="closeComboModal()">Đăng ký combo này</a>
+                </div>
+
+                <!-- Combo 3 -->
+                <div class="combo-item">
+                    <div class="combo-header">
+                        <span class="combo-badge">Premium</span>
+                        <h3 class="combo-name">Combo Trọn Bộ VIP</h3>
+                        <div class="combo-price">
+                            <span class="combo-price-current">25.990.000đ</span>
+                            <span class="combo-price-original">52.000.000đ</span>
+                        </div>
+                    </div>
+                    <ul class="combo-details">
+                        <li>✅ Bồn cầu thông minh tự động rửa</li>
+                        <li>✅ Lavabo đặt bàn nghệ thuật</li>
+                        <li>✅ Hệ thống sen tắm âm tường</li>
+                        <li>✅ Bồn tắm nằm/đứng cao cấp</li>
+                        <li>✅ Tủ lavabo gỗ sồi nhập khẩu</li>
+                        <li>✅ Bộ phụ kiện 10 món mạ vàng</li>
+                        <li>✅ Gương đèn LED thông minh</li>
+                        <li>🎁 <strong>Tặng máy sấy tay + bình nóng lạnh</strong></li>
+                        <li>🎁 <strong>Thiết kế 3D miễn phí</strong></li>
+                        <li>🎁 <strong>Bảo hành 10 năm</strong></li>
+                    </ul>
+                    <a href="#contact" class="btn btn-product combo-btn" onclick="closeComboModal()">Đăng ký combo này</a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>

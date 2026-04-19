@@ -115,6 +115,29 @@ const style = document.createElement('style');
 style.textContent = '.animate-visible { opacity: 1 !important; transform: translateY(0) !important; }';
 document.head.appendChild(style);
 
+// ===== COMBO MODAL =====
+function openComboModal() {
+    const modal = document.getElementById('comboModal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeComboModal(e) {
+    if (e && e.target && !e.target.classList.contains('combo-modal-overlay')) return;
+    const modal = document.getElementById('comboModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// Close modal on ESC key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeComboModal();
+});
+
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {
     initCountdown();
