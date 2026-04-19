@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BKL HOME - Thiết Bị Vệ Sinh & Nhà Bếp Cao Cấp | Giảm Giá 50%</title>
+    <title>BKL HOME - Tổng Kho Gia Dụng & Thiết Bị Vệ Sinh | Giảm Giá 50%</title>
     <meta name="description"
         content="BKL HOME - Showroom thiết bị vệ sinh và nhà bếp cao cấp. Giảm giá 50% toàn bộ sản phẩm + nhiều quà tặng hấp dẫn. 2 showroom tại Hà Nội.">
     <meta name="keywords"
@@ -35,7 +35,7 @@
         <div class="container">
             <div class="top-bar-content">
                 <span class="top-bar-icon">🔥</span>
-                <span>SIÊU SALE THÁNG 4 - GIẢM GIÁ LÊN ĐẾN <strong>50%</strong> TOÀN BỘ SẢN PHẨM + QUÀ TẶNG HẤP
+                <span id="dynamic-sale-text">SIÊU SALE THÁNG 4 - GIẢM GIÁ LÊN ĐẾN <strong>50%</strong> TOÀN BỘ SẢN PHẨM + QUÀ TẶNG HẤP
                     DẪN</span>
                 <span class="top-bar-icon">🔥</span>
             </div>
@@ -75,9 +75,9 @@
                     <span class="badge-icon">⭐</span> CHÍNH HÃNG 100% - BẢO HÀNH TOÀN QUỐC
                 </div>
                 <h1 class="hero-title animate-fade-in-up">
-                    Thiết Bị Vệ Sinh<br>
-                    <span class="hero-highlight">& Nhà Bếp</span><br>
-                    <span class="hero-accent">Cao Cấp</span>
+                    BKL Home<br>
+                    <span class="hero-highlight">Tổng Kho Gia Dụng</span><br>
+                    <span class="hero-accent">& Thiết Bị Vệ Sinh</span>
                 </h1>
                 <p class="hero-subtitle animate-fade-in-up">
                     Nâng tầm không gian sống với thiết bị vệ sinh và nhà bếp chính hãng từ các thương hiệu hàng đầu thế
@@ -177,17 +177,17 @@
                 <div class="product-card">
                     <div class="product-badge">-50%</div>
                     <div class="product-image">
-                        <img src="images/product-toilet.png" alt="Bồn cầu thông minh" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80" alt="Tủ Lavabo Cao Cấp" loading="lazy">
                     </div>
                     <div class="product-info">
-                        <span class="product-category">Thiết bị vệ sinh</span>
-                        <h3 class="product-name">Bồn Cầu Thông Minh</h3>
-                        <p class="product-desc">Bồn cầu treo tường kèm vòi xịt tự động, tiết kiệm nước</p>
+                        <span class="product-category">Nội thất phòng tắm</span>
+                        <h3 class="product-name">Tủ Lavabo Cao Cấp</h3>
+                        <p class="product-desc">Đa dạng mẫu tủ chậu lavabo, chống nước tuyệt đối, tích hợp gương LED thông minh</p>
                         <div class="product-pricing">
-                            <span class="price-current">8.490.000đ</span>
-                            <span class="price-original">16.990.000đ</span>
+                            <span class="price-current">Từ 2.990.000đ</span>
+                            <span class="price-original">6.000.000đ</span>
                         </div>
-                        <a href="#contact" class="btn btn-product">Liên hệ mua hàng</a>
+                        <button onclick="openLavaboModal()" class="btn btn-product">🔥 Xem các mẫu tủ</button>
                     </div>
                 </div>
                 <!-- Product 3 -->
@@ -491,10 +491,10 @@
     <!-- FLOATING CTA -->
     <div class="floating-cta">
         <a href="tel:0945668078" class="float-btn float-phone" aria-label="Gọi điện">
-            📞
+            📞 <span class="float-text">Gọi Tư Vấn</span>
         </a>
         <a href="#contact" class="float-btn float-form" aria-label="Đăng ký">
-            🎁
+            🎁 <span class="float-text">Nhận Ưu Đãi</span>
         </a>
     </div>
 
@@ -573,6 +573,80 @@
                         <li>🎁 <strong>Bảo hành 10 năm</strong></li>
                     </ul>
                     <a href="#contact" class="btn btn-product combo-btn" onclick="closeComboModal()">Đăng ký combo này</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LAVABO MODAL -->
+    <div class="combo-modal-overlay" id="lavaboModal" onclick="closeLavaboModal(event)">
+        <div class="combo-modal" onclick="event.stopPropagation()">
+            <button class="combo-modal-close" onclick="closeLavaboModal()">&times;</button>
+            <h2 class="combo-modal-title">🔥 Tủ Lavabo BKL Cao Cấp</h2>
+            <p class="combo-modal-subtitle">Đa dạng mẫu mã, chất liệu chống nước tuyệt đối</p>
+            
+            <div class="combo-list" style="margin-top:20px;">
+                <!-- Mẫu 1 -->
+                <div class="combo-item">
+                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80" style="width:100%; border-radius:8px; margin-bottom:15px; height: 180px; object-fit: cover;" alt="Lavabo Hiện Đại">
+                    <div class="combo-header">
+                        <span class="combo-badge">Chống nước 100%</span>
+                        <h3 class="combo-name">Lavabo Hiện Đại PVC</h3>
+                        <div class="combo-price">
+                            <span class="combo-price-current">2.990.000đ</span>
+                            <span class="combo-price-original">6.000.000đ</span>
+                        </div>
+                    </div>
+                    <ul class="combo-details">
+                        <li>✅ Tủ dưới chất liệu nhựa PVC đặc</li>
+                        <li>✅ Chậu sứ Nano trắng sáng</li>
+                        <li>✅ Gương phôi Bỉ siêu trong</li>
+                        <li>✅ Chống cong vênh, mối mọt</li>
+                        <li>🎁 <strong>Tặng xi phông xả chữ P</strong></li>
+                    </ul>
+                    <a href="#contact" class="btn btn-product combo-btn" onclick="closeLavaboModal()">Liên hệ tư vấn</a>
+                </div>
+
+                <!-- Mẫu 2 -->
+                <div class="combo-item combo-featured">
+                    <img src="https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=800&q=80" style="width:100%; border-radius:8px; margin-bottom:15px; height: 180px; object-fit: cover;" alt="Lavabo Tân Cổ Điển">
+                    <div class="combo-header">
+                        <span class="combo-badge combo-badge-hot">🔥 Bán chạy</span>
+                        <h3 class="combo-name">Lavabo Gỗ Sồi Nga</h3>
+                        <div class="combo-price">
+                            <span class="combo-price-current">4.890.000đ</span>
+                            <span class="combo-price-original">9.500.000đ</span>
+                        </div>
+                    </div>
+                    <ul class="combo-details">
+                        <li>✅ Tủ dưới gỗ Sồi tự nhiên phủ Melamine</li>
+                        <li>✅ Mặt đá Ceramic chống xước</li>
+                        <li>✅ Gương LED cảm ứng viền mạ vàng</li>
+                        <li>✅ Bản lề giảm chấn Inox 304</li>
+                        <li>🎁 <strong>Tặng Vòi Lavabo Nóng Lạnh</strong></li>
+                    </ul>
+                    <a href="#contact" class="btn btn-product combo-btn" onclick="closeLavaboModal()">Liên hệ tư vấn</a>
+                </div>
+
+                <!-- Mẫu 3 -->
+                <div class="combo-item">
+                    <img src="https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?auto=format&fit=crop&w=800&q=80" style="width:100%; border-radius:8px; margin-bottom:15px; height: 180px; object-fit: cover;" alt="Lavabo Nhôm Chống Xước">
+                    <div class="combo-header">
+                        <span class="combo-badge combo-badge-vip">💎 Cao cấp</span>
+                        <h3 class="combo-name">Lavabo Hợp Kim Nhôm</h3>
+                        <div class="combo-price">
+                            <span class="combo-price-current">5.490.000đ</span>
+                            <span class="combo-price-original">12.000.000đ</span>
+                        </div>
+                    </div>
+                    <ul class="combo-details">
+                        <li>✅ Tủ hợp kim nhôm Carbon siêu bền</li>
+                        <li>✅ Mặt đá thạch anh vân mây</li>
+                        <li>✅ Tủ gương LED cao cấp chứa đồ</li>
+                        <li>✅ Chống xước, chống cháy tuyệt đối</li>
+                        <li>🎁 <strong>Tặng bộ xả + Vòi đồng thau</strong></li>
+                    </ul>
+                    <a href="#contact" class="btn btn-product combo-btn" onclick="closeLavaboModal()">Liên hệ tư vấn</a>
                 </div>
             </div>
         </div>

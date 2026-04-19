@@ -135,11 +135,59 @@ function closeComboModal(e) {
 
 // Close modal on ESC key
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeComboModal();
+    if (e.key === 'Escape') {
+        closeComboModal();
+        closeLavaboModal();
+    }
 });
+
+// ===== LAVABO MODAL =====
+function openLavaboModal() {
+    const modal = document.getElementById('lavaboModal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeLavaboModal(e) {
+    if (e && e.target && !e.target.classList.contains('combo-modal-overlay')) return;
+    const modal = document.getElementById('lavaboModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// ===== DYNAMIC SALE BANNER =====
+function initDynamicSale() {
+    const saleText = document.getElementById('dynamic-sale-text');
+    if (!saleText) return;
+
+    const today = new Date();
+    const day = today.getDate();
+    const month = today.getMonth() + 1;
+    
+    let eventName = "THÁNG " + month;
+    
+    if (month === 1 && day <= 15) eventName = "TẾT DƯƠNG LỊCH";
+    else if (month === 2 && day <= 14) eventName = "LỄ TÌNH NHÂN";
+    else if (month === 3 && day <= 8) eventName = "QUỐC TẾ PHỤ NỮ";
+    else if (month === 4) eventName = "ĐẠI LỄ 30/4";
+    else if (month === 5 && day <= 5) eventName = "ĐẠI LỄ 1/5";
+    else if (month === 6 && day <= 1) eventName = "QUỐC TẾ THIẾU NHI";
+    else if (month === 9 && day <= 5) eventName = "MỪNG QUỐC KHÁNH";
+    else if (month === 10 && day <= 20) eventName = "PHỤ NỮ VIỆT NAM";
+    else if (month === 11 && day <= 20) eventName = "NHÀ GIÁO VN";
+    else if (month === 12 && day <= 25) eventName = "GIÁNG SINH";
+    else if (month === 12) eventName = "CHÀO NĂM MỚI";
+
+    saleText.innerHTML = `SIÊU SALE ${eventName} - GIẢM GIÁ LÊN ĐẾN <strong>50%</strong> TOÀN BỘ SẢN PHẨM + QUÀ TẶNG HẤP DẪN`;
+}
 
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {
+    initDynamicSale();
     initCountdown();
     initMobileMenu();
     initStickyHeader();
