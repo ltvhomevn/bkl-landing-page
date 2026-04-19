@@ -1,18 +1,13 @@
-// ===== COUNTDOWN TIMER =====
+// ===== COUNTDOWN TIMER (24h) =====
 function initCountdown() {
-    const endDate = new Date();
-    endDate.setDate(endDate.getDate() + 7);
-    endDate.setHours(23, 59, 59, 0);
-
     function updateTimer() {
         const now = new Date();
-        const diff = endDate - now;
-        if (diff <= 0) { endDate.setDate(endDate.getDate() + 7); return; }
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+        const diff = endOfDay - now;
+        if (diff <= 0) return;
+        const hours = Math.floor(diff / (1000 * 60 * 60));
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        document.getElementById('days').textContent = String(days).padStart(2, '0');
         document.getElementById('hours').textContent = String(hours).padStart(2, '0');
         document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
         document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
@@ -61,6 +56,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ===== FORM SUBMIT =====
+// 🔧 CẤU HÌNH: Thay URL bên dưới bằng Google Apps Script deployment URL của bạn
+const GOOGLE_SCRIPT_URL = ''; // ← Paste URL Apps Script vào đây
+
 function handleFormSubmit(e) {
     e.preventDefault();
     const form = document.getElementById('leadForm');
@@ -69,24 +67,43 @@ function handleFormSubmit(e) {
     btn.textContent = '⏳ Đang gửi...';
     btn.disabled = true;
 
-    // Gửi dữ liệu form qua Formspree
+    // Thu thập dữ liệu form
+    const data = {
+        fullName: form.fullName.value,
+        phone: form.phone.value,
+        email: form.email.value || '',
+        interest: form.interest.value || '',
+        showroom: form.showroom.value || ''
+    };
+
+    // Gửi đến Google Sheets + Lark (qua Apps Script)
+    const promises = [];
+
+    if (GOOGLE_SCRIPT_URL) {
+        promises.push(
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            }).catch(() => {})
+        );
+    }
+
+    // Backup: vẫn gửi Formspree
     const formData = new FormData(form);
-    fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-    })
-    .then(response => {
-        if (response.ok) {
-            form.style.display = 'none';
-            success.style.display = 'block';
-        } else {
-            btn.textContent = '❌ Lỗi, thử lại';
-            btn.disabled = false;
-        }
-    })
-    .catch(() => {
-        // Fallback: hiển thị thành công dù offline
+    promises.push(
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+        }).catch(() => {})
+    );
+
+    Promise.all(promises).then(() => {
+        form.style.display = 'none';
+        success.style.display = 'block';
+    }).catch(() => {
         form.style.display = 'none';
         success.style.display = 'block';
     });
