@@ -57,7 +57,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 // ===== FORM SUBMIT =====
 // 🔧 CẤU HÌNH: Thay URL bên dưới bằng Google Apps Script deployment URL của bạn
-const GOOGLE_SCRIPT_URL = ''; // ← Paste URL Apps Script vào đây
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxnZWXnOOontlZTUgCFFh6SwvsvNklVZRm1Ttry9TfPxiZFlnQBoIAbDVilLmRBIKEHag/exec';
 
 function handleFormSubmit(e) {
     e.preventDefault();
