@@ -56,8 +56,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ===== FORM SUBMIT =====
-// 🔧 CẤU HÌNH: Thay URL bên dưới bằng Google Apps Script deployment URL của bạn
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxnZWXnOOontlZTUgCFFh6SwvsvNklVZRm1Ttry9TfPxiZFlnQBoIAbDVilLmRBIKEHag/exec';
+// Data gửi đến: Google Apps Script → Lark Base + Thông báo nhóm Lark
+const LARK_PROXY_URL = 'https://script.google.com/macros/s/AKfycbxnZWXnOOontlZTUgCFFh6SwvsvNklVZRm1Ttry9TfPxiZFlnQBoIAbDVilLmRBIKEHag/exec';
 
 function handleFormSubmit(e) {
     e.preventDefault();
@@ -67,7 +67,6 @@ function handleFormSubmit(e) {
     btn.textContent = '⏳ Đang gửi...';
     btn.disabled = true;
 
-    // Thu thập dữ liệu form
     const data = {
         fullName: form.fullName.value,
         phone: form.phone.value,
@@ -76,31 +75,12 @@ function handleFormSubmit(e) {
         showroom: form.showroom.value || ''
     };
 
-    // Gửi đến Google Sheets + Lark (qua Apps Script)
-    const promises = [];
-
-    if (GOOGLE_SCRIPT_URL) {
-        promises.push(
-            fetch(GOOGLE_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            }).catch(() => {})
-        );
-    }
-
-    // Backup: vẫn gửi Formspree
-    const formData = new FormData(form);
-    promises.push(
-        fetch(form.action, {
-            method: 'POST',
-            body: formData,
-            headers: { 'Accept': 'application/json' }
-        }).catch(() => {})
-    );
-
-    Promise.all(promises).then(() => {
+    fetch(LARK_PROXY_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    }).then(() => {
         form.style.display = 'none';
         success.style.display = 'block';
     }).catch(() => {
