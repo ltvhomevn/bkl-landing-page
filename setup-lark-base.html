@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head><title>Lark Base Setup</title></head>
+<body style="font-family: sans-serif; padding: 40px; max-width: 800px; margin: 0 auto;">
+  <h2>🚀 BKL Home - Lark Base Setup</h2>
+  <pre id="log" style="background: #f4f4f4; padding: 20px; border-radius: 8px; font-size: 13px; line-height: 1.6; white-space: pre-wrap;"></pre>
+  <div id="result" style="margin-top: 20px; padding: 20px; background: #e8f5e9; border-radius: 8px; display: none;">
+    <h3>✅ Setup Complete!</h3>
+    <pre id="config" style="font-size: 13px;"></pre>
+  </div>
+
+  <script>
+    const APP_ID = 'cli_a96e086194b8deea';
+    const APP_SECRET = 'HYjYfDVpnMhzeXlbiRIyJD2qzRhBSrjP';
+    const API = 'https://open.larksuite.com/open-apis';
+
+    const logEl = document.getElementById('log');
+    const log = (msg) => { logEl.textContent += msg + '\n'; };
+
+    async function setup() {
+      try {
+        // Step 1: Get token
+        log('📦 Step 1: Getting tenant access token...');
+        const tokenResp = await fetch(API + '/auth/v3/tenant_access_token/internal', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ app_id: APP_ID, app_secret: APP_SECRET })
+        });
+        const tokenData = await tokenResp.json();
+        if (tokenData.code !== 0) throw new Error('Token error: ' + tokenData.msg);
+        const token = tokenData.tenant_access_token;
+        log('✅ Token obtained: ' + token.substring(0, 20) + '...');
+
+        const headers = {
+          'Authorization': 'Bearer ' + token,
+          'Content-Type': 'application/json'
+        };
+
+        // Step 2: Create Bitable App
+        log('\n📦 Step 2: Creating Lark Base (Bitable)...');
+        const baseResp = await fetch(API + '/bitable/v1/apps', {
+          method: 'POST',
+          headers: headers,
+          body: JSON.stringify({ name: 'BKL Home - Leads' })
+        });
+        const baseData = await baseResp.json();
+        log('Base response: ' + JSON.stringify(baseData, null, 2));
+        
+        if (baseData.code !== 0) throw new Error('Base creation error: ' + baseData.msg);
+        
+        const appToken = baseData.data.app.app_token;
+        log('✅ Bitable created: ' + appToken);
+
+        // Step 3: Get default table
+        log('\n📦 Step 3: Getting default table...');
+        const tablesResp = await fetch(API + '/bitable/v1/apps/' + appToken + '/tables', {
+          headers: headers
+        });
+        const tablesData = await tablesResp.json();
+        log('Tables: ' + JSON.stringify(tablesData, null, 2));
+
+        let tableId;
+        if (tablesData.data && tablesData.data.items && tablesData.data.items.length > 0) {
+          tableId = tablesData.data.items[0].table_id;
+          log('✅ Default table found: ' + tableId);
+          
+          // Rename the default table
+          await fetch(API + '/bitable/v1/apps/' + appToken + '/tables/' + tableId, {
+            method: 'PATCH',
+            headers: headers,
+            body: JSON.stringify({ name: 'Đăng ký ưu đãi' })
+          });
+          log('✅ Table renamed to "Đăng ký ưu đãi"');
+        } else {
+          // Create a new table
+          const createTableResp = await fetch(API + '/bitable/v1/apps/' + appToken + '/tables', {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify({
+              table: {
+                name: 'Đăng ký ưu đãi',
+                default_view_name: 'Grid View',
+                fields: [
+                  { field_name: 'Họ tên', type: 1 },
+                  { field_name: 'SĐT', type: 1 },
+                  { field_name: 'Email', type: 1 },
+                  { field_name: 'Sản phẩm', type: 1 },
+                  { field_name: 'Showroom', type: 1 },
+                  { field_name: 'Thời gian', type: 5 }
+                ]
+              }
+            })
+          });
+          const createTableData = await createTableResp.json();
+          log('Create table: ' + JSON.stringify(createTableData, null, 2));
+          tableId = createTableData.data.table_id;
+          log('✅ Table created: ' + tableId);
+        }
+
+        // Step 4: Add fields to existing table
+        log('\n📦 Step 4: Adding fields to table...');
+        const fields = [
+          { field_name: 'Họ tên', type: 1 },
+          { field_name: 'SĐT', type: 13 },
+          { field_name: 'Email', type: 1 },
+          { field_name: 'Sản phẩm', type: 3, property: { options: [
+            { name: 'Thiết bị vệ sinh' }, { name: 'Thiết bị nhà bếp' }, { name: 'Cả hai' }, { name: 'Khác' }
+          ]}},
+          { field_name: 'Showroom', type: 3, property: { options: [
+            { name: '36V5 Văn Phú, Hà Đông' }, { name: '211 Nguyễn Xiển, Thanh Xuân' }
+          ]}},
+          { field_name: 'Thời gian', type: 5 }
+        ];
+
+        for (const field of fields) {
+          try {
+            const fResp = await fetch(API + '/bitable/v1/apps/' + appToken + '/tables/' + tableId + '/fields', {
+              method: 'POST',
+              headers: headers,
+              body: JSON.stringify(field)
+            });
+            const fData = await fResp.json();
+            if (fData.code === 0) {
+              log('  ✅ Field "' + field.field_name + '" created');
+            } else {
+              log('  ⚠️ Field "' + field.field_name + '": ' + fData.msg);
+            }
+          } catch(e) {
+            log('  ⚠️ Field "' + field.field_name + '" error: ' + e.message);
+          }
+        }
+
+        // Step 5: Test inserting a record
+        log('\n📦 Step 5: Testing record insert...');
+        const testRecord = {
+          fields: {
+            'Họ tên': 'Test User',
+            'SĐT': '0912345678',
+            'Email': 'test@bklhome.com',
+            'Sản phẩm': 'Thiết bị vệ sinh',
+            'Showroom': '36V5 Văn Phú, Hà Đông',
+            'Thời gian': Date.now()
+          }
+        };
+        const insertResp = await fetch(API + '/bitable/v1/apps/' + appToken + '/tables/' + tableId + '/records', {
+          method: 'POST',
+          headers: headers,
+          body: JSON.stringify(testRecord)
+        });
+        const insertData = await insertResp.json();
+        log('Insert result: ' + JSON.stringify(insertData, null, 2));
+        
+        if (insertData.code === 0) {
+          log('✅ Test record inserted successfully!');
+        } else {
+          log('⚠️ Insert test: ' + insertData.msg);
+        }
+
+        // Show final config
+        log('\n🎉 SETUP COMPLETE!');
+        const config = {
+          APP_ID: APP_ID,
+          APP_SECRET: APP_SECRET,
+          BITABLE_APP_TOKEN: appToken,
+          BITABLE_TABLE_ID: tableId
+        };
+        
+        document.getElementById('config').textContent = JSON.stringify(config, null, 2);
+        document.getElementById('result').style.display = 'block';
+        document.title = 'SETUP_DONE|' + appToken + '|' + tableId;
+        
+      } catch(e) {
+        log('\n❌ ERROR: ' + e.message);
+        document.title = 'SETUP_ERROR';
+      }
+    }
+
+    setup();
+  </script>
+</body>
+</html>
