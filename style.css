@@ -192,6 +192,8 @@ a { text-decoration: none; color: inherit; }
 .policy-list { padding-left: 20px; margin: 12px 0 8px; }
 .policy-list li { margin: 10px 0; color: var(--text); line-height: 1.8; }
 .policy-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 36px; }
+.support-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 24px; }
+.support-card h2 { margin-top: 0; }
 .btn-secondary { background: white; color: var(--dark); border: 1px solid rgba(0,0,0,0.12); }
 .btn-secondary:hover { border-color: var(--primary); color: var(--primary-dark); transform: translateY(-1px); }
 
@@ -288,6 +290,7 @@ a { text-decoration: none; color: inherit; }
   .policy-hero { padding-top: 104px; }
   .policy-card { padding: 24px; }
   .policy-card h2 { font-size: 24px; }
+  .support-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 480px) {
   .hero-actions { flex-direction: column; }

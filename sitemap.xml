@@ -6,8 +6,18 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://bklhome.com/privacy-policy.html</loc>
+    <loc>https://bklhome.com/privacy-policy</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bklhome.com/terms-of-service</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://bklhome.com/support</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>
